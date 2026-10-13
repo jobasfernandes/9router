@@ -319,6 +319,17 @@ export const PROVIDER_CAPABILITIES = {
     "MiniMax-M2.7":               { reasoning: true, thinkingFormat: "claude-adaptive", thinkingCanDisable: false, contextWindow: 200000, maxOutput: 128000 },
     "MiniMax-M2.7-highspeed":     { reasoning: true, thinkingFormat: "claude-adaptive", thinkingCanDisable: false, contextWindow: 200000, maxOutput: 128000 },
   },
+  // DeepSeek API — V4.1 Flash serves `deepseek-flash` and every legacy flash id
+  // the registry remaps to it. Limits from the live /models payload
+  // (context_window 1048576, max_output_tokens 393216, image input). Scoped to
+  // this provider: third-party hosts still serve the old text-only V4 Flash
+  // under the same names, and the global deepseek-flash entry covers them.
+  "deepseek": {
+    "deepseek-flash":               { vision: true, reasoning: true, thinkingFormat: "deepseek", contextWindow: 1048576, maxOutput: 393216 },
+    "deepseek-v4.1-flash":          { vision: true, reasoning: true, thinkingFormat: "deepseek", contextWindow: 1048576, maxOutput: 393216 },
+    "deepseek-v4-flash":            { vision: true, reasoning: true, thinkingFormat: "deepseek", contextWindow: 1048576, maxOutput: 393216 },
+    "deepseek-v4-flash-vision-exp": { vision: true, reasoning: true, thinkingFormat: "deepseek", contextWindow: 1048576, maxOutput: 393216 },
+  },
 };
 
 // Qoder CN serves the identical model catalog from the CN gateway, so it shares
@@ -329,6 +340,7 @@ PROVIDER_CAPABILITIES.dv = PROVIDER_CAPABILITIES["devin-cli"];
 PROVIDER_CAPABILITIES.devin = PROVIDER_CAPABILITIES["devin-cli"];
 // The global mcode site serves the same catalog — share the capability table.
 PROVIDER_CAPABILITIES["minimax-code-global"] = PROVIDER_CAPABILITIES["minimax-code"];
+PROVIDER_CAPABILITIES.ds = PROVIDER_CAPABILITIES.deepseek;
 
 /**
  * Pattern fallback — glob (* = wildcard), matched case-insensitively and

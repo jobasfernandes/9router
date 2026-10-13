@@ -56,12 +56,16 @@ export default {
     },
   ],
   models: [
+    { id: "deepseek-flash", name: "DeepSeek V4.1 Flash" },
     { id: "deepseek-v4-pro", name: "DeepSeek V4 Pro" },
     { id: "deepseek-v4-pro-max", name: "DeepSeek V4 Pro Max", upstreamModelId: "deepseek-v4-pro" },
     { id: "deepseek-v4-pro-none", name: "DeepSeek V4 Pro No Thinking", upstreamModelId: "deepseek-v4-pro" },
-    { id: "deepseek-v4.1-flash", name: "DeepSeek V4.1 Flash" },
-    { id: "deepseek-v4-flash", name: "DeepSeek V4 Flash" },
-    { id: "deepseek-v4-flash-vision-exp", name: "DeepSeek V4 Flash Vision (Exp)" },
+    // Legacy flash ids kept so existing combos/configs keep resolving. The API
+    // rejects deepseek-v4.1-flash (HTTP 400, #3994) and only routes the retired
+    // v4-flash ids to V4.1 Flash "temporarily", so all send the canonical id.
+    { id: "deepseek-v4.1-flash", name: "DeepSeek V4.1 Flash (legacy id)", upstreamModelId: "deepseek-flash" },
+    { id: "deepseek-v4-flash", name: "DeepSeek V4 Flash (legacy id)", upstreamModelId: "deepseek-flash" },
+    { id: "deepseek-v4-flash-vision-exp", name: "DeepSeek V4 Flash Vision (legacy id)", upstreamModelId: "deepseek-flash" },
     { id: "deepseek-chat", name: "DeepSeek V3.2 Chat" },
     { id: "deepseek-reasoner", name: "DeepSeek V3.2 Reasoner" },
   ],
