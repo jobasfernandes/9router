@@ -39,6 +39,11 @@ export default {
       // DeepSeek's OpenAI-compatible transport is unaffected (targetFormat
       // there is "openai", not "claude", so prepareClaudeRequest is not run).
       claudeSupportedToolTypes: ["web_search_20250305", "web_search_20260209"],
+      // The Anthropic-compatible endpoint reads effort only from
+      // output_config.effort (an unknown value is a 422) and silently ignores
+      // a top-level reasoning_effort (an unknown value is a 200), so without
+      // this Claude Code's effort level never reaches the model.
+      claudeEffortInOutputConfig: true,
     },
   },
   // Multi-endpoint: pick the transport matching client sourceFormat to skip translation.

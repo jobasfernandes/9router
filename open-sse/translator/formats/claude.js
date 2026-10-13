@@ -487,6 +487,12 @@ export function prepareClaudeRequest(body, provider = null, apiKey = null, conne
   if (PROVIDERS[provider]?.quirks?.dropOutputConfig) {
     delete body.output_config;
   }
+  // quirk: DeepSeek's Claude-compatible endpoint ignores the top-level reasoning_effort
+  // the "deepseek" thinking format writes; it only reads output_config.effort
+  if (PROVIDERS[provider]?.quirks?.claudeEffortInOutputConfig && body.reasoning_effort) {
+    body.output_config = { ...body.output_config, effort: body.reasoning_effort };
+    delete body.reasoning_effort;
+  }
 
   // Models whose API rejects thinking "disabled" and forced tool use with a 400
   // (Sonnet 5.5). Runs on every Claude-bound body, so OpenAI clients, native
